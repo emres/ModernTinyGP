@@ -8,10 +8,10 @@ in March, 2008 (See also its [Amazon.com
 page](https://www.amazon.com/Field-Guide-Genetic-Programming/dp/1409200736)).
 
 The original code is in https://github.com/emres/TinyGP. The algorithm and 
-implementation is almost the same except for a few Java refactorings and
+implementation are almost the same except for a few Java refactorings and
 [Apache Maven](https://maven.apache.org/)-based build system.
 
-The book was published in **March, 2008**, when **Java Standard Edition 6** was the
+The book was published in **March 2008**, when **Java Standard Edition 6** was the
 current Java version. Now, in **January 2024**, almost 16 years later, 
 **Java SE 21 (Long Term Support)** is the current Java version
 (see [Java version history](https://en.wikipedia.org/wiki/Java_version_history)
