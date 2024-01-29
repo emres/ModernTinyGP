@@ -208,7 +208,7 @@ public class ModernTinyGP {
   static char[] buffer = new char[MAX_LEN];
 
   char[] createRandomIndividual(int depth) {
-    char[] ind;
+    char[] individual;
     int len;
 
     len = grow(buffer, 0, MAX_LEN, depth);
@@ -216,10 +216,10 @@ public class ModernTinyGP {
     while (len < 0)
       len = grow(buffer, 0, MAX_LEN, depth);
 
-    ind = new char[len];
+    individual = new char[len];
 
-    System.arraycopy(buffer, 0, ind, 0, len);
-    return (ind);
+    System.arraycopy(buffer, 0, individual, 0, len);
+    return (individual);
   }
 
   char[][] createRandomPopulation(double[] fitness) {
