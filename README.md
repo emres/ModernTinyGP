@@ -1,11 +1,13 @@
 # ModernTinyGP
 
-ModernTinyGP is the **modernized** version of TinyGP, the genetic programming
+ModernTinyGP is the **modernized** version of 
+[TinyGP](https://github.com/emres/TinyGP), the genetic programming
 software described in
 "[A Field Guide to Genetic Programming](http://www.gp-field-guide.org.uk/)"
 (ISBN 978-1-4092-0073-4) by Riccardo Poli, Bill Langdon, Nic McPhee, published
 in March, 2008 (See also its [Amazon.com
-page](https://www.amazon.com/Field-Guide-Genetic-Programming/dp/1409200736)).
+page](https://www.amazon.com/Field-Guide-Genetic-Programming/dp/1409200736)). You can also read
+[my Goodreads review](https://www.goodreads.com/review/show/6166473293). 
 
 The original code is in https://github.com/emres/TinyGP. The algorithm and 
 implementation are almost the same except for a few Java refactorings and
