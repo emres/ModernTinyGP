@@ -7,6 +7,8 @@ package be.tmdata.ModernTinyGP;
  *
  */
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.io.*;
 
@@ -86,39 +88,40 @@ public class ModernTinyGP {
 
   void setupFitness(String fileName) {
     try {
-      int i, j;
-      String line;
+      String[] lines = Files.readAllLines(Path.of(fileName)).toArray(String[]::new);
 
-      BufferedReader in = new BufferedReader(new FileReader(fileName));
-      line = in.readLine();
-      StringTokenizer tokens = new StringTokenizer(line);
+      // Parse the parameters in the first line
+      StringTokenizer tokens = new StringTokenizer(lines[0]);
       varNumber = Integer.parseInt(tokens.nextToken().trim());
       randomNumber = Integer.parseInt(tokens.nextToken().trim());
       minRandom = Double.parseDouble(tokens.nextToken().trim());
       maxRandom = Double.parseDouble(tokens.nextToken().trim());
       fitnessCases = Integer.parseInt(tokens.nextToken().trim());
+
       targets = new double[fitnessCases][varNumber + 1];
 
       if (varNumber + randomNumber >= FSET_START) {
         System.out.println("too many variables and constants");
       }
 
-      for (i = 0; i < fitnessCases; i++) {
-        line = in.readLine();
-        tokens = new StringTokenizer(line);
-        for (j = 0; j <= varNumber; j++) {
+      // Parse the rest of the lines that makes up the data set
+      for (int i = 1; i < fitnessCases; i++) {
+        tokens = new StringTokenizer(lines[i]);
+        for (int j = 0; j <= varNumber; j++) {
           targets[i][j] = Double.parseDouble(tokens.nextToken().trim());
         }
       }
-      in.close();
     } catch (FileNotFoundException e) {
+      System.out.println(e.getMessage());
       System.out.println("ERROR: Please provide a data file");
       System.exit(0);
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       System.out.println("ERROR: Incorrect data format");
       System.exit(0);
     }
   }
+
 
   double calculateFitness(char[] Program) {
     int i;
