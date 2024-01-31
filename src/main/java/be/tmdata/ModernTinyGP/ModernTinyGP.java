@@ -143,11 +143,13 @@ public class ModernTinyGP {
     char prim = (char) rd.nextInt(2);
     int one_child;
 
-    if (pos >= max)
+    if (pos >= max) {
       return (-1);
+    }
 
-    if (pos == 0)
+    if (pos == 0) {
       prim = 1;
+    }
 
     if (prim == 0 || depth == 0) {
       prim = (char) rd.nextInt(varNumber + randomNumber);
@@ -172,7 +174,9 @@ public class ModernTinyGP {
   }
 
   int printIndividual(char[] buffer, int bufferCounter) {
-    int a1 = 0, a2;
+    int a1 = 0;
+    int a2;
+
     if (buffer[bufferCounter] < FSET_START) {
       if (buffer[bufferCounter] < varNumber)
         System.out.print("X" + (buffer[bufferCounter] + 1) + " ");
@@ -226,13 +230,13 @@ public class ModernTinyGP {
   }
 
   char[][] createRandomPopulation(double[] fitness) {
-    char[][] pop = new char[ModernTinyGP.POPULATION_SIZE][];
+    char[][] population = new char[POPULATION_SIZE][];
 
-    for (int i = 0; i < ModernTinyGP.POPULATION_SIZE; i++) {
-      pop[i] = createRandomIndividual(ModernTinyGP.DEPTH);
-      fitness[i] = calculateFitness(pop[i]);
+    for (int i = 0; i < POPULATION_SIZE; i++) {
+      population[i] = createRandomIndividual(DEPTH);
+      fitness[i] = calculateFitness(population[i]);
     }
-    return (pop);
+    return (population);
   }
 
 
@@ -262,7 +266,7 @@ public class ModernTinyGP {
 
     printIndividual(pop[best], 0);
 
-    System.out.print("\n");
+    System.out.print("\n\n");
     System.out.flush();
   }
 
@@ -281,10 +285,11 @@ public class ModernTinyGP {
   }
 
   int runNegativeTournament(double[] fitness, int tsize) {
-    int worst = rd.nextInt(POPULATION_SIZE), i, competitor;
+    int competitor;
     double fitnessWorst = 1e34;
+    int worst = rd.nextInt(POPULATION_SIZE);
 
-    for (i = 0; i < tsize; i++) {
+    for (int i = 0; i < tsize; i++) {
       competitor = rd.nextInt(POPULATION_SIZE);
       if (fitness[competitor] < fitnessWorst) {
         fitnessWorst = fitness[competitor];
@@ -315,22 +320,21 @@ public class ModernTinyGP {
     offspring = new char[lenOffspring];
 
     System.arraycopy(parent1, 0, offspring, 0, xo1start);
-    System.arraycopy(parent2, xo2start, offspring, xo1start,
-        (xo2end - xo2start));
+    System.arraycopy(parent2, xo2start, offspring,
+        xo1start, (xo2end - xo2start));
     System.arraycopy(parent1, xo1end, offspring,
-        xo1start + (xo2end - xo2start),
-        (len1 - xo1end));
+        xo1start + (xo2end - xo2start), (len1 - xo1end));
 
     return (offspring);
   }
 
   char[] mutation(char[] parent, double pmut) {
-    int len = traverse(parent, 0), i;
+    int len = traverse(parent, 0);
     int mutationSite;
     char[] parentCopy = new char[len];
 
     System.arraycopy(parent, 0, parentCopy, 0, len);
-    for (i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
       if (rd.nextDouble() < pmut) {
         mutationSite = i;
         if (parentCopy[mutationSite] < FSET_START)
@@ -435,7 +439,7 @@ public class ModernTinyGP {
       fileName = args[0];
     }
 
-    be.tmdata.ModernTinyGP.ModernTinyGP gp = new be.tmdata.ModernTinyGP.ModernTinyGP(fileName, randomizationSeed);
+    var gp = new ModernTinyGP(fileName, randomizationSeed);
     gp.evolve();
   }
 }
