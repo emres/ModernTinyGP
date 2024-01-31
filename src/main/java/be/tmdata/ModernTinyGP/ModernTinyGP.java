@@ -1,16 +1,16 @@
 package be.tmdata.ModernTinyGP;
 
-/*
- * Program: ModernTinyGP.java
- *
- * Author:  Riccardo Poli  (email: rpoli@essex.ac.uk)
- *
- */
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.io.*;
+
+/**
+ * Program: ModernTinyGP.java
+ * Author:  Riccardo Poli  (email: rpoli@essex.ac.uk)
+ * Minor code modernization, clean-up and refactoring by
+ * Emre Sevinç (email: emre.sevinc@gmail.com)
+ */
 
 public class ModernTinyGP {
   double[] fitness;
@@ -43,6 +43,10 @@ public class ModernTinyGP {
   public static final double PMUT_PER_NODE = 0.05;
   public static final double CROSSOVER_PROBABILITY = 0.9;
   static double[][] targets;
+
+  static final int ERROR_DATA_FILE_NOT_FOUND = 1;
+  static final int ERROR_INCORRECT_DATA_FORMAT = 2;
+  static final int ERROR_INCORRECT_SEED_FORMAT = 3;
 
   double run() { /* Interpreter */
     char primitive = program[PROGRAM_COUNTER++];
@@ -111,14 +115,14 @@ public class ModernTinyGP {
           targets[i][j] = Double.parseDouble(tokens.nextToken().trim());
         }
       }
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       System.out.println("ERROR: Please provide a data file");
-      System.exit(0);
+      System.exit(ERROR_DATA_FILE_NOT_FOUND);
     } catch (Exception e) {
       System.out.println(e.getMessage());
       System.out.println("ERROR: Incorrect data format");
-      System.exit(0);
+      System.exit(ERROR_INCORRECT_DATA_FORMAT);
     }
   }
 
@@ -431,8 +435,14 @@ public class ModernTinyGP {
     long randomizationSeed = -1;
 
     if (args.length == 2) {
-      randomizationSeed = Integer.parseInt(args[0]);
-      fileName = args[1];
+      try {
+        randomizationSeed = Integer.parseInt(args[0]);
+        fileName = args[1];
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
+        System.out.println("SEED value must be an integer, but it is given as: " + args[0]);
+        System.exit(ERROR_INCORRECT_SEED_FORMAT);
+      }
     }
 
     if (args.length == 1) {
