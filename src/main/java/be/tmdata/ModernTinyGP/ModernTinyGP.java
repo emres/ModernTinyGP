@@ -244,14 +244,14 @@ public class ModernTinyGP {
   }
 
 
-  void calculateAndPrintStats(double[] fitness, char[][] pop, int gen) {
-    int i, best = rd.nextInt(POPULATION_SIZE);
+  void calculateAndPrintStats(double[] fitness, char[][] population, int gen) {
+    int best = rd.nextInt(POPULATION_SIZE);
     int nodeCount = 0;
     fBestPopulation = fitness[best];
     fAveragePopulation = 0.0;
 
-    for (i = 0; i < POPULATION_SIZE; i++) {
-      nodeCount += traverse(pop[i], 0);
+    for (int i = 0; i < POPULATION_SIZE; i++) {
+      nodeCount += traverse(population[i], 0);
       fAveragePopulation += fitness[i];
       if (fitness[i] > fBestPopulation) {
         best = i;
@@ -268,17 +268,18 @@ public class ModernTinyGP {
         ", Avg Size=" + averageLength +
         "\nBest Individual: ");
 
-    printIndividual(pop[best], 0);
+    printIndividual(population[best], 0);
 
     System.out.print("\n\n");
     System.out.flush();
   }
 
   int runTournament(double[] fitness, int tsize) {
-    int best = rd.nextInt(POPULATION_SIZE), i, competitor;
+    int competitor;
+    int best = rd.nextInt(POPULATION_SIZE);
     double fitnessBest = -1.0e34;
 
-    for (i = 0; i < tsize; i++) {
+    for (int i = 0; i < tsize; i++) {
       competitor = rd.nextInt(POPULATION_SIZE);
       if (fitness[competitor] > fitnessBest) {
         fitnessBest = fitness[competitor];
@@ -341,18 +342,19 @@ public class ModernTinyGP {
     for (int i = 0; i < len; i++) {
       if (rd.nextDouble() < pmut) {
         mutationSite = i;
-        if (parentCopy[mutationSite] < FSET_START)
+        if (parentCopy[mutationSite] < FSET_START) {
           parentCopy[mutationSite] = (char) rd.nextInt(varNumber);
-        else
+        }
+        else {
           switch (parentCopy[mutationSite]) {
             case ADD:
             case SUB:
             case MUL:
             case DIV:
               parentCopy[mutationSite] =
-                  (char) (rd.nextInt(FSET_END - FSET_START + 1)
-                      + FSET_START);
+                  (char) (rd.nextInt(FSET_END - FSET_START + 1) + FSET_START);
           }
+        }
       }
     }
     return (parentCopy);
