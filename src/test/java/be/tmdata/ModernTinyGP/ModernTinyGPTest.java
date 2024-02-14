@@ -60,6 +60,8 @@ public class ModernTinyGPTest
         gp.calculateAndPrintStats(gp.fitness, gp.population, 0);
 
         assertEquals(-4702.205328217432, ModernTinyGP.fAveragePopulation, delta);
+        assertEquals(-24.988275787304183, ModernTinyGP.fBestPopulation, delta);
+        assertEquals(10.99556, ModernTinyGP.averageLength, delta);
     }
 
     // Helper method to capture console output
