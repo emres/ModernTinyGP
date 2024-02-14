@@ -46,6 +46,22 @@ public class ModernTinyGPTest
         assertEquals("", getConsoleOutput(outContent)); // Assuming no error messages are printed
     }
 
+    @Test
+    public void calculateAndPrintStats_Test() {
+        double delta = 0.0001;
+        long randomizationSeed = 2;
+        String fileName = "src/test/resources/valid_sin_data.txt";
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        ModernTinyGP gp = new ModernTinyGP(fileName, randomizationSeed);
+
+        gp.calculateAndPrintStats(gp.fitness, gp.population, 0);
+
+        assertEquals(-4702.205328217432, ModernTinyGP.fAveragePopulation, delta);
+    }
+
     // Helper method to capture console output
     private String getConsoleOutput(ByteArrayOutputStream outContent) {
         return outContent.toString();
