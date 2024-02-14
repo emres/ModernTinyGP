@@ -10,8 +10,8 @@ page](https://www.amazon.com/Field-Guide-Genetic-Programming/dp/1409200736)). Yo
 [my Goodreads review](https://www.goodreads.com/review/show/6166473293). 
 
 The original code is in https://github.com/emres/TinyGP. The algorithm and 
-implementation are almost the same except for a few Java refactorings and
-[Apache Maven](https://maven.apache.org/)-based build system.
+implementation are almost the same except for a few Java refactorings, unit
+tests, and [Apache Maven](https://maven.apache.org/)-based build system.
 
 The book was published in **March 2008**, when **Java Standard Edition 6** was the
 current Java version. Now, in **January 2024**, almost 16 years later, 
